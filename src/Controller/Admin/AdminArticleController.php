@@ -78,6 +78,29 @@ class AdminArticleController extends AbstractController
             'articleForm' => $articleCreateFormView
         ]);
 
+    }
+
+    #[Route('/admin/articles/update/{id}', 'admin_update_article')]
+    public function updateArticle(int $id, Request $request, EntityManagerInterface $entityManager, ArticleRepository $articleRepository)
+    {
+        $article = $articleRepository->find($id);
+
+        $articleCreateForm = $this->createForm(ArticleType::class, $article);
+
+        $articleCreateForm->handleRequest($request);
+
+        if ($articleCreateForm->isSubmitted() && $articleCreateForm->isValid()) {
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'article enregistré');
+        }
+
+        $articleCreateFormView = $articleCreateForm->createView();
+
+        return $this->render('admin/page/article/update_article.html.twig', [
+            'articleForm' => $articleCreateFormView
+        ]);
 
     }
 

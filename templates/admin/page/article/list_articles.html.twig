@@ -6,6 +6,8 @@
 
     <section class="admin-list-articles">
 
+        <a href="{{ path('admin_insert_article') }}">Créer un article</a>
+
 
         <table class="admin-article-table">
             <tr>
@@ -34,6 +36,7 @@
                     </td>
                 <td>
                     <a href="{{ path('admin_delete_article', {id: article.id}) }}">Supprimer</a>
+                    <a href="{{ path('admin_update_article', {id: article.id}) }}">Mettre à jour</a>
                 </td>
                 </tr>
             {% endfor %}
