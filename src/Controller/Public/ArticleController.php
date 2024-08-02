@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Public;
 
 use App\Repository\ArticleRepository;
@@ -11,7 +13,7 @@ class ArticleController extends AbstractController
 {
 
     #[Route('/articles', 'list_articles')]
-    public function listArticles(ArticleRepository $articleRepository)
+    public function listArticles(ArticleRepository $articleRepository): Response
     {
         $articles = $articleRepository->findAll();
 
@@ -22,7 +24,7 @@ class ArticleController extends AbstractController
 
 
     #[Route('/articles/{id}', 'show_article')]
-    public function showArticle(int $id, ArticleRepository $articleRepository)
+    public function showArticle(int $id, ArticleRepository $articleRepository): Response
     {
         $article = $articleRepository->find($id);
 
