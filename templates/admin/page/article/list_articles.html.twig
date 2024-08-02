@@ -14,6 +14,7 @@
                 <td>Titre</td>
                 <td>Date</td>
                 <td>Est publié ?</td>
+                <td>Actions</td>
             </tr>
 
 
@@ -32,6 +33,9 @@
                         {% endif %}
 
                     </td>
+                <td>
+                    <a href="{{ path('admin_delete_article', {id: article.id}) }}">Supprimer</a>
+                </td>
                 </tr>
             {% endfor %}
         </table>
