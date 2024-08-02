@@ -6,12 +6,14 @@
         <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet" />
 
     </head>
+
+    <body>
+
     <header class="header">
         <nav class="header-nav">
             <p>Admin</p>
         </nav>
     </header>
-    <body>
 
     {#
         vérifie si des messages flashes ont été enregistrés
@@ -24,9 +26,11 @@
         {% endfor %}
 
         {% block body %}{% endblock %}
+
+    <footer class="footer">
     </body>
 
-<footer class="footer">
+
 
 </footer>
 </html>

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,6 +19,8 @@ class AdminArticleController extends AbstractController
     #[Route('/admin/articles', 'admin_list_articles')]
     public function adminListArticles(ArticleRepository $articleRepository): Response
     {
+
+
         $articles = $articleRepository->findAll();
 
         return $this->render('admin/page/article/list_articles.html.twig', [
@@ -48,6 +53,32 @@ class AdminArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_list_articles');
+    }
+
+
+    #[Route('/admin/articles/insert', 'admin_insert_article')]
+    public function insertArticle(Request $request, EntityManagerInterface $entityManager)
+    {
+        $article = new Article();
+
+        $articleCreateForm = $this->createForm(ArticleType::class, $article);
+
+        $articleCreateForm->handleRequest($request);
+
+        if($articleCreateForm->isSubmitted() && $articleCreateForm->isValid()) {
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'article enregistré');
+        }
+
+        $articleCreateFormView = $articleCreateForm->createView();
+
+        return $this->render('admin/page/article/insert_article.html.twig', [
+            'articleForm' => $articleCreateFormView
+        ]);
+
+
     }
 
 
