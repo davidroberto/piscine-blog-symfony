@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+    <h1>Les articles : </h1>
+
+    <section class="admin-list-articles">
+
+
+        <table class="admin-article-table">
+            <tr>
+                <td>Id</td>
+                <td>Image</td>
+                <td>Titre</td>
+                <td>Date</td>
+                <td>Est publié ?</td>
+            </tr>
+
+
+
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.id }}</td>
+                    <td><img class="admin-article-image" src="{{ article.image }}" alt="{{ article.title }}" /></td>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.createdAt | date('d-m-Y') }}</td>
+                    <td>
+                        {% if article.isPublished %}
+                            <p>Oui</p>
+                        {% else %}
+                            <p>Non</p>
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+
+    </section>
+
+{% endblock %}
