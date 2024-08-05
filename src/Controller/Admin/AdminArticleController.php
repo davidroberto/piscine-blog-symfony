@@ -20,7 +20,6 @@ class AdminArticleController extends AbstractController
     public function adminListArticles(ArticleRepository $articleRepository): Response
     {
 
-
         $articles = $articleRepository->findAll();
 
         return $this->render('admin/page/article/list_articles.html.twig', [
@@ -70,6 +69,8 @@ class AdminArticleController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'article enregistré');
+
+            return $this->redirectToRoute('admin_list_articles');
         }
 
         $articleCreateFormView = $articleCreateForm->createView();
@@ -103,7 +104,5 @@ class AdminArticleController extends AbstractController
         ]);
 
     }
-
-
 
 }

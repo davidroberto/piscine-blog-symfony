@@ -28,7 +28,7 @@ class ArticleController extends AbstractController
     {
         $article = $articleRepository->find($id);
 
-        if (!$article || !$article->isPublished()) {
+        if (!$article || !$article->getIsPublished()) {
             $html404 = $this->renderView('public/page/404.html.twig');
             return new Response($html404, 404);
         }
