@@ -14,7 +14,7 @@
             <ul>
                 <li><a href="{{ path('admin_list_articles') }}">Gérer les articles </a></li>
                 <li><a href="{{ path('admin_list_categories') }}">Gérer les catégories </a></li>
-
+                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
             </ul>
         </nav>
     </header>
@@ -28,6 +28,13 @@
                 {{ message }}
             </div>
         {% endfor %}
+
+
+    {% for message in app.flashes('error') %}
+        <div class="error-message">
+            {{ message }}
+        </div>
+    {% endfor %}
 
         {% block body %}{% endblock %}
 
