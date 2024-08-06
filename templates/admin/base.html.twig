@@ -4,6 +4,10 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet" />
+        <link href="{{ asset('asset/css/app.css') }}" rel="stylesheet" />
+
+        {% block css %}
+        {% endblock %}
 
     </head>
 
@@ -39,9 +43,7 @@
         {% block body %}{% endblock %}
 
     <footer class="footer">
+    </footer>
+
     </body>
-
-
-
-</footer>
 </html>
