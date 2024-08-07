@@ -37,13 +37,16 @@
                 <td>
                     <a href="{{ path('admin_update_article', {id: article.id}) }}">Mettre à jour</a>
 
-                    <p class="js-admin-article-delete">Supprimer</p>
 
-                    <div class="admin-article-popup-delete">
+                    <div class="admin-article-popup-delete" data-article-popup-target-id="{{ article.id }}">
                         <p>Voulez vous vraiment supprimer ?</p>
 
                         <a href="{{ path('admin_delete_article', {id: article.id}) }}">Supprimer</a>
                     </div>
+
+                    <p data-article-trigger-id="{{ article.id }}" class="js-admin-article-delete">Supprimer</p>
+
+
                 </td>
                 </tr>
             {% endfor %}

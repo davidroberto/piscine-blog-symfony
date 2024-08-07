@@ -8,12 +8,17 @@ deleteArticleButtons.forEach((deleteArticleButton) => {
     // donc on attend que le bouton soit cliqué
     // quand il est cliqué, on execute une fonction de callback
     deleteArticleButton.addEventListener('click', () => {
+        
+        // récupère la valeur de l'attribut data-article-trigger-id
+        // de l'élement cliqué
+        const articleId = deleteArticleButton.dataset.articleTriggerId;
 
-        // on prend l'élément HTML suivant (c'est à dire ici la popup)
-        const popup = deleteArticleButton.nextElementSibling;
-        // et on l'affiche en modifiant son display en CSS
+        // je sélectionné l'élement HTML qui contient un attribut nommé data-article-popup-target-id
+        // et dont la valeur est la même que l'id de l'article
+        const popup = document.querySelector(`[data-article-popup-target-id="${articleId}"]`);
+
+        // je passe la popup trouvée en display block
         popup.style.display = "block";
 
     });
 })
-
