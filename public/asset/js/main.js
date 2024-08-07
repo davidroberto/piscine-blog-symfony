@@ -8,7 +8,7 @@ deleteArticleButtons.forEach((deleteArticleButton) => {
     // donc on attend que le bouton soit cliqué
     // quand il est cliqué, on execute une fonction de callback
     deleteArticleButton.addEventListener('click', () => {
-        
+
         // récupère la valeur de l'attribut data-article-trigger-id
         // de l'élement cliqué
         const articleId = deleteArticleButton.dataset.articleTriggerId;
@@ -19,6 +19,5 @@ deleteArticleButtons.forEach((deleteArticleButton) => {
 
         // je passe la popup trouvée en display block
         popup.style.display = "block";
-
     });
 })
