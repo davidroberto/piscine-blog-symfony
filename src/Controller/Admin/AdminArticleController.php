@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Service\UniqueFilenameGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -58,7 +59,7 @@ class AdminArticleController extends AbstractController
 
 
     #[Route('/admin/articles/insert', 'admin_insert_article')]
-    public function insertArticle(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, ParameterBagInterface $params)
+    public function insertArticle(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, ParameterBagInterface $params, UniqueFilenameGenerator $uniqueFilenameGenerator)
     {
         $article = new Article();
 
@@ -68,17 +69,17 @@ class AdminArticleController extends AbstractController
 
         if($articleCreateForm->isSubmitted() && $articleCreateForm->isValid()) {
 
-            // récupèrer le fichier depuis le formulaire
             $imageFile = $articleCreateForm->get('image')->getData();
 
-            // si il y a bien un fichier envoyé
             if ($imageFile) {
-                // je récupère son nom
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // je nettoie le nom (sort les caractères spéciaux etc)
                 $safeFilename = $slugger->slug($originalFilename);
-                // je rajoute un identifiant unique au nom
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                $extension = $imageFile->guessExtension();
+
+                // j'ai créé une classe "de service"
+                // qui genere un nom unique pour un fichier
+                $newFilename = $uniqueFilenameGenerator->generateUniqueFilename($safeFilename, $extension);
 
                 try {
                     // je récupère le chemin de la racine du projet
